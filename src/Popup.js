@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import getOffset from 'dom-helpers/query/offset';
 import getScrollTop from 'dom-helpers/query/scrollTop';
@@ -10,10 +9,10 @@ import localizer from './localizer';
 import { elementType, dateFormat } from './utils/propTypes';
 
 const propTypes = {
-  position: PropTypes.object,
-  popupOffset: PropTypes.number,
-  events: PropTypes.array,
-  selected: PropTypes.object,
+  position: React.PropTypes.object,
+  popupOffset: React.PropTypes.number,
+  events: React.PropTypes.array,
+  selected: React.PropTypes.object,
   eventComponent: elementType,
   eventWrapperComponent: elementType,
   dayHeaderFormat: dateFormat
@@ -48,7 +47,7 @@ class Popup extends React.Component {
       , leftOffset = (this.state || {}).leftOffset || 0;
 
     let style = {
-      top: Math.max(0, top - topOffset),
+      top: top - topOffset,
       left: left - leftOffset,
       minWidth: width + (width / 2)
     }

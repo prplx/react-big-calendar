@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import dates from './utils/dates';
@@ -6,12 +5,12 @@ import { accessor, elementType } from './utils/propTypes';
 import { accessor as get } from './utils/accessors';
 
 let propTypes = {
-  event: PropTypes.object.isRequired,
-  slotStart: PropTypes.instanceOf(Date),
-  slotEnd: PropTypes.instanceOf(Date),
+  event: React.PropTypes.object.isRequired,
+  slotStart: React.PropTypes.instanceOf(Date),
+  slotEnd: React.PropTypes.instanceOf(Date),
 
-  selected: PropTypes.bool,
-  eventPropGetter: PropTypes.func,
+  selected: React.PropTypes.bool,
+  eventPropGetter: React.PropTypes.func,
   titleAccessor: accessor,
   allDayAccessor: accessor,
   startAccessor: accessor,
@@ -19,8 +18,7 @@ let propTypes = {
 
   eventComponent: elementType,
   eventWrapperComponent: elementType.isRequired,
-  onSelect: PropTypes.func,
-  onDoubleClick: PropTypes.func
+  onSelect: React.PropTypes.func
 }
 
 class EventCell extends React.Component {
@@ -34,7 +32,6 @@ class EventCell extends React.Component {
       , slotStart
       , slotEnd
       , onSelect
-      , onDoubleClick
       , eventComponent: Event
       , eventWrapperComponent: EventWrapper
       , ...props } = this.props;
@@ -44,7 +41,7 @@ class EventCell extends React.Component {
       , start = get(event, startAccessor)
       , isAllDay = get(event, props.allDayAccessor)
       , continuesPrior = dates.lt(start, slotStart, 'day')
-      , continuesAfter = dates.gte(end, slotEnd, 'day')
+      , continuesAfter = dates.gt(end, slotEnd, 'day')
 
     if (eventPropGetter)
       var { style, className: xClassName } = eventPropGetter(event, start, end, selected);
@@ -60,7 +57,6 @@ class EventCell extends React.Component {
             'rbc-event-continues-after': continuesAfter
           })}
           onClick={(e) => onSelect(event, e)}
-          onDoubleClick={(e) => onDoubleClick(event, e)}
         >
           <div className='rbc-event-content' title={title}>
             { Event
